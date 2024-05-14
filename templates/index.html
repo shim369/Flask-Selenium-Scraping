@@ -12,9 +12,10 @@ Login
     </div>
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="text" name="password" id="password" class="form-control">
+        <input type="password" name="password" id="password" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <input type="hidden" name="token" value="{{token}}">
+    <button type="submit" id="submitBtn" class="btn btn-primary">Login</button>
 </form>
 {% endblock  %}
 

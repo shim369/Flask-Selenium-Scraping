@@ -1,3 +1,4 @@
+import random
 from flask import Blueprint,render_template,request,redirect,session
 import load_excel
 
@@ -6,10 +7,17 @@ main = Blueprint('main',__name__)
 @main.route("/", methods=["GET","POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        token = random.randint(1, 1000)
+        session["token"] = str(token)
+
+        return render_template("index.html",token=token)
     else:
         email = request.form.get("email")
         password = request.form.get("password")
+        token = request.form.get("token")
+
+        if token != str(session["token"]):
+            return redirect("/")
     
     login_info = {"email": "shim@gmail.com", "password": "abcd1234"}
 
@@ -33,3 +41,4 @@ def form():
     else:
         session.pop("loginUser", None)
         return redirect("/")
+    
